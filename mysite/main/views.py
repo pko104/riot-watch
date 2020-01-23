@@ -19,23 +19,32 @@ print(me)
 my_ranked_stats = watcher.league.by_summoner(my_region, me['id'])
 print(my_ranked_stats)
 
-mysummid = my_ranked_stats[0]["summonerId"]
-champion_mastered = watcher.champion_mastery.by_summoner(my_region,mysummid)
-top_5_champs = champion_mastered[0:4]
-print(top_5_champs)
 
-# Lets get some champions
 
-# champions = watcher.champion.rotations(my_region)
-# print(champions)
 
-# versions_per_reg = watcher.data_dragon.versions_for_region(my_region)
-# print(versions_per_reg)
+#champion id finder
+def id_to_name_champ_finder(champid):
+	champion_list = watcher.data_dragon.champions('10.2.1', True)
+	stringified = str(champid)
+	for c in champion_list["data"]:
+		if champion_list["data"][c]["key"] == stringified:
+			# print(c)
+			return c
 
-champion_list = watcher.data_dragon.champions('10.2.1', True)
+# id_to_name_champ_finder(101)
 
-certain_champ = champion_list["data"]["101"]
-print(certain_champ)
+#return list of top 5 champs
+def top_5_best_champs():
+	five_array = []
+	mysummid = my_ranked_stats[0]["summonerId"]
+	champion_mastered = watcher.champion_mastery.by_summoner(my_region,mysummid)
+	top_5_champs = champion_mastered[0:5]
+	for t in top_5_champs:
+		champid = t["championId"]
+		five_array.append( id_to_name_champ_finder(champid) )
+	return five_array
+
+
 
 
 
@@ -63,4 +72,4 @@ except ApiError as err:
 # Create your views here.
 
 def homepage(request):
-	return HttpResponse(top_5_champs)
+	return HttpResponse(top_5_best_champs())
