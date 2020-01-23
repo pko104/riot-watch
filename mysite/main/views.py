@@ -1,26 +1,21 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from .models import Tutorial
 
-
-
-#generic
+# Create your views here.
 
 from riotwatcher import RiotWatcher, ApiError
 
 watcher = RiotWatcher('RGAPI-4bc32ce1-4ee9-4b7c-a53d-a51b9883b43a')
 
 my_region = 'na1'
-
 me = watcher.summoner.by_name(my_region, 'ellls')
 print(me)
-
-# all objects are returned (by default) as a dict
-# lets see if I got diamond yet (I probably didn't)
 my_ranked_stats = watcher.league.by_summoner(my_region, me['id'])
+mysummid = my_ranked_stats[0]["summonerId"]
 print(my_ranked_stats)
-
-
-
+champion_mastered = watcher.champion_mastery.by_summoner(my_region,mysummid)
+print(champion_mastered)
 
 #champion id finder
 def id_to_name_champ_finder(champid):
@@ -32,19 +27,20 @@ def id_to_name_champ_finder(champid):
 			return c
 
 # id_to_name_champ_finder(101)
-
-#return list of top 5 champs
+# return list of top 5 champs
 def top_5_best_champs():
 	five_array = []
-	mysummid = my_ranked_stats[0]["summonerId"]
 	champion_mastered = watcher.champion_mastery.by_summoner(my_region,mysummid)
 	top_5_champs = champion_mastered[0:5]
 	for t in top_5_champs:
 		champid = t["championId"]
-		five_array.append( id_to_name_champ_finder(champid) )
+		five_array.append( {
+				"name" : id_to_name_champ_finder(champid), 
+				"img" : "http://ddragon.leagueoflegends.com/cdn/img/champion/loading/"+id_to_name_champ_finder(champid)+"_0.jpg",
+				"champion_level" : t["championLevel"],
+				"champion_points" : t["championPoints"],
+				} )
 	return five_array
-
-
 
 
 
@@ -69,7 +65,11 @@ except ApiError as err:
 
 
 
-# Create your views here.
 
 def homepage(request):
-	return HttpResponse(top_5_best_champs())
+	return render(	request=request,
+					template_name="main/home.html",
+					context={	"tutorials":Tutorial.objects.all,
+								"mytopfive":top_5_best_champs()
+								})
+	# return HttpResponse(top_5_best_champs())
