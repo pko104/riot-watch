@@ -48,8 +48,23 @@
 
 .champion-image-border{
 	width: 100%;
-	border: 8px outset rgba(216,188,93,0.55);
+	border: 6px outset rgba(216,188,93,0.55);
 	outline: 1px outset rgba(242,238,95,0.55);
 	outline-offset: 0px;
 	box-shadow: 6px 6px 8px #888888;
+}
+
+.champion-name{
+	text-align: center;
+    position: relative;
+    top: -82px;
+    font-size: 25px;
+}
+
+.champ-pts{
+	text-align: center;
+    position: relative;
+    top: -100px;
+    font-size: 15px;
+
 }

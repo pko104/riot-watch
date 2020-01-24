@@ -4,9 +4,26 @@
 </head>
 <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
 <body>
+
+
+
 	<div class="container-fluid text-center">
 		<h1 class="frozito-font italics bold">Stat<span class="livemas-font">5</span></h1>
 	</div>
+
+	{% block body%}
+	<div class="container">
+		<h2>{{text}}</h2>
+		<form method="post">
+			{%csrf_token%}
+			{{form}}
+			<button type="submit">Submit</button>
+		</form>
+	</div>
+	{%endblock%}
+
+	
+
 	<div class ="container">
 		<div class="row justify-content-center frozito-font">
 		{% for c in current_summoner %}
@@ -17,13 +34,16 @@
 				<div class="row justify-content-center">
 				<img style="width:10%" src="/static/ranked-emblems/Emblem_{{c.tier}}.png">
 				</div>
-				<div class="row justify-content-center">
+				<div class="row justify-content-center wildb-font">
 				<h2>{{c.tier}} {{c.rank}}</h2>	
 				</div>
 			</div>
 			<br>
-			<div class="livemas-font col-12 justify-content-center" style="display:flex">
-				<h3>Wins ( {{c.wins}} )- Losses ( {{c.losses}} )</h3>	
+			<div class="livemas-font col-12 justify-content-center wildb-font" style="display:flex">
+				<p class="livemas-font">Wins </p>
+				<p class="wildb-font"> ( {{c.wins}} )</p> -  
+				<p class="livemas-font"> Losses </p>
+				<p class="wildb-font"> ( {{c.losses}} )</p>	
 			</div>			
 		{% endfor %}
 		</div>
@@ -32,8 +52,8 @@
 			<div class="col-2" style="position:relative;padding:15px">
 				<img class="champion-image-border" src={{t.img}}>
 				<p class="champion-level">{{t.champion_level}}</p>
-				<p class="frozito-font">{{t.name}}</p>	
-				<p>{{t.champion_points}}</p>
+				<p class="frozito-font champion-name">{{t.name}}</p>
+				<p class="wildb-font champ-pts">{{t.champion_points}}</p>
 			</div>
 			<br>
 		{% endfor %}	

@@ -9,6 +9,8 @@ class Tutorial(models.Model):
 	def __str__(self):
 		return self.tutorial_title
 
+		
+
 
 
 
