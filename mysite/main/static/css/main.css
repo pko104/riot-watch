@@ -1,0 +1,55 @@
+
+@font-face {
+    font-family: 'Frozito-eZ99g';
+    src: local('Frozito-eZ99g'), url('../fonts/Frozito-eZ99g.ttf') format('opentype');
+}
+
+@font-face {
+    font-family: 'livemas';
+    src: local('livemas'), url('../fonts/livemas.ttf')
+}
+
+@font-face {
+    font-family: 'wildbreath';
+    src: local('wildbreath'), url('../fonts/wildbreath.ttf')
+}
+
+
+.frozito-font{
+	font-family: 'Frozito-eZ99g';
+}
+
+.livemas-font{
+	font-family: 'livemas'
+}
+
+.wildb-font{
+	font-family: 'wildbreath'
+}
+
+.italics{
+	font-style:italic;
+}
+
+.bold{
+	font-style: bold;
+}
+
+.champion-level{
+	text-align:center;
+	font-family: 'livemas';
+	font-size: 45px;
+    font-style: bold;
+    position: relative;
+    top: -60px;
+    text-shadow: 3px 3px 2px black;
+    color:#7A6E48;
+}
+
+.champion-image-border{
+	width: 100%;
+	border: 8px outset rgba(216,188,93,0.55);
+	outline: 1px outset rgba(242,238,95,0.55);
+	outline-offset: 0px;
+	box-shadow: 6px 6px 8px #888888;
+}

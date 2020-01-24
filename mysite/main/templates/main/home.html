@@ -1,26 +1,42 @@
-<div>
-
-{% for c in current_summoner %}
-	{{c.summonerName}}
-	<div style="display:flex">
-		<div>{{c.tier}}</div>	
-		<div>{{c.rank}}</div>
+{% load static %}
+<head>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+</head>
+<link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+<body>
+	<div class="container-fluid text-center">
+		<h1 class="frozito-font italics bold">Stat<span class="livemas-font">5</span></h1>
 	</div>
-	<div style="display:flex">
-		<div>{{c.wins}}</div>	
-		<div>{{c.losses}}</div>
-	</div>			
-{% endfor %}
-</div>
-
-<div style="display:flex; position:relative;">
-{% for t in mytopfive %}
-	<div style="position:relative; width: 100px; padding:15px">
-		<img style="width:100%" src={{t.img}}>
-		<p>{{t.name}}</p>
-		<p>{{t.champion_level}}</p>
-		<p>{{t.champion_points}}</p>
+	<div class ="container">
+		<div class="row justify-content-center frozito-font">
+		{% for c in current_summoner %}
+			<div class="row justify-content-center">
+			<h2 class="col-12">{{c.summonerName}}</h2>
+			</div>
+			<div class="livemas-font col-12">	
+				<div class="row justify-content-center">
+				<img style="width:10%" src="/static/ranked-emblems/Emblem_{{c.tier}}.png">
+				</div>
+				<div class="row justify-content-center">
+				<h2>{{c.tier}} {{c.rank}}</h2>	
+				</div>
+			</div>
+			<br>
+			<div class="livemas-font col-12 justify-content-center" style="display:flex">
+				<h3>Wins ( {{c.wins}} )- Losses ( {{c.losses}} )</h3>	
+			</div>			
+		{% endfor %}
+		</div>
+		<div class="row justify-content-center" style="display:flex; position:relative;">
+		{% for t in mytopfive %}
+			<div class="col-2" style="position:relative;padding:15px">
+				<img class="champion-image-border" src={{t.img}}>
+				<p class="champion-level">{{t.champion_level}}</p>
+				<p class="frozito-font">{{t.name}}</p>	
+				<p>{{t.champion_points}}</p>
+			</div>
+			<br>
+		{% endfor %}	
+		</div>
 	</div>
-	<br>
-{% endfor %}	
-</div>
+</body>
