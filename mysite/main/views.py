@@ -15,7 +15,7 @@ my_ranked_stats = watcher.league.by_summoner(my_region, me['id'])
 mysummid = my_ranked_stats[0]["summonerId"]
 print(my_ranked_stats)
 champion_mastered = watcher.champion_mastery.by_summoner(my_region,mysummid)
-print(champion_mastered)
+# print(champion_mastered)
 
 #champion id finder
 def id_to_name_champ_finder(champid):
@@ -70,6 +70,7 @@ def homepage(request):
 	return render(	request=request,
 					template_name="main/home.html",
 					context={	"tutorials":Tutorial.objects.all,
-								"mytopfive":top_5_best_champs()
+								"mytopfive":top_5_best_champs(),
+								"current_summoner":my_ranked_stats
 								})
 	# return HttpResponse(top_5_best_champs())

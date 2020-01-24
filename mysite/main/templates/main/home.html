@@ -1,7 +1,26 @@
+<div>
+
+{% for c in current_summoner %}
+	{{c.summonerName}}
+	<div style="display:flex">
+		<div>{{c.tier}}</div>	
+		<div>{{c.rank}}</div>
+	</div>
+	<div style="display:flex">
+		<div>{{c.wins}}</div>	
+		<div>{{c.losses}}</div>
+	</div>			
+{% endfor %}
+</div>
+
+<div style="display:flex; position:relative;">
 {% for t in mytopfive %}
-	<img src={{t.img}}>
-	<p>{{t.name}}</p>
-	<p>{{t.champion_level}}</p>
-	<p>{{t.champion_points}}</p>
+	<div style="position:relative; width: 100px; padding:15px">
+		<img style="width:100%" src={{t.img}}>
+		<p>{{t.name}}</p>
+		<p>{{t.champion_level}}</p>
+		<p>{{t.champion_points}}</p>
+	</div>
 	<br>
 {% endfor %}	
+</div>
