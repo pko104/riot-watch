@@ -13,6 +13,7 @@ name = 'ellls'
 def check_ranked_stats(name):
 	me = watcher.summoner.by_name(my_region, name)
 	my_ranked_stats = watcher.league.by_summoner(my_region, me['id'])
+	return my_ranked_stats
 
 
 #champion id finder
@@ -31,9 +32,13 @@ def top_5_best_champs(name):
 	champion_mastered = watcher.champion_mastery.by_summoner(my_region,mysummid)
 	five_array = []
 	champion_mastered = watcher.champion_mastery.by_summoner(my_region,mysummid)
-	top_5_champs = champion_mastered[0:5]
+	if champion_mastered[0:5]:
+		top_5_champs = champion_mastered[0:5]
+	else:
+		champion_mastered[0]
 	for t in top_5_champs:
 		champid = t["championId"]
+		print(champid)
 		five_array.append( {
 				"name" : id_to_name_champ_finder(champid), 
 				"img" : "http://ddragon.leagueoflegends.com/cdn/img/champion/loading/"+id_to_name_champ_finder(champid)+"_0.jpg",
@@ -62,9 +67,8 @@ class HomeView(TemplateView):
 		return render(	request=request,
 						template_name=self.template_name,
 						context={
-									"form":form,
-									"mytopfive":top_5_best_champs('ellls'),
-									"current_summoner":check_ranked_stats('ellls'),
+									"form":form
+								
 									})
 	def post(self,request):
 		form = SummonerForm(request.POST)
