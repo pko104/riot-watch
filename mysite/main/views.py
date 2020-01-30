@@ -28,77 +28,84 @@ def get_match_list_by_acc(name):
 	me = watcher.summoner.by_name(my_region, name)
 	my_match_stats = watcher.match.matchlist_by_account(my_region, me['accountId'])
 	five_array = []
-	five_array = my_match_stats["matches"][0:1]
+	five_array = my_match_stats["matches"][0:2]
 	return five_array
 
+#get match desc
 def get_match_descriptions(name):
 	match_array=[]
 	five_array = get_match_list_by_acc(name)
 	for f in five_array:
 		match_array.append( watcher.match.by_id(my_region, f['gameId']) )
-	# print(match_array)
 	return match_array
-		
+
+#pull out specific match data from JSON
 def pull_out_match_data(name):
 	match_dict = []
 	match_desc = get_match_descriptions(name)
+	summId = check_ranked_stats(name)[0]['summonerId']
+
 	for m in match_desc:
 		#grab team both team data
+		print('hi')
+
+		match_data = []
 		team1_data = m['teams'][0]
 		team2_data = m['teams'][1]
 		#reset array to push into dict per participant
+		#identities have their own loop
 		for p in m['participantIdentities']:
-			if p['player']['summonerId'] == check_ranked_stats(name)[0]['summonerId']:			
+			if p['player']['summonerId'] == summId:			
 				#check to see which participant the name value is
 				participant_id = p['participantId'] 
-				match_data = []
-				for k in m['participants']:
 
-					#check which team is which
-					if k['teamId'] == team1_data['teamId']:
-						participant_team = team1_data
-					else:
-						participant_team = team2_data		
+		#participants have their own loop
+		for k in m['participants']:
 
-					#only grab data from the participant
-					if participant_id == k['participantId']:
-						match_data.append({	'participantId': k['participantId'],
-											'championId': k['championId'],
-											'champImg': "http://ddragon.leagueoflegends.com/cdn/10.2.1/img/champion/"+id_to_name_champ_finder(k['championId'])+".png",
-											'teamId': k['teamId'],
-											'spell1Id': k['spell1Id'],
-											'spell2Id': k['spell2Id'],
-											'win': participant_team['win'],
-											'kills': k['stats']['kills'],
-											'deaths': k['stats']['deaths'],
-											'assists': k['stats']['assists'],
-											'dragonKills': participant_team['dragonKills'],
-											'baronKills': participant_team['baronKills'],
-											'riftHeraldKills': participant_team['riftHeraldKills'],
-											'totalDamageDealtToChampions': k['stats']['totalDamageDealtToChampions'],
-											'magicDamageDealtToChampions': k['stats']['magicDamageDealtToChampions'],
-											'physicalDamageDealtToChampions': k['stats']['physicalDamageDealtToChampions'],
-											'totalDamageTaken': k['stats']['totalDamageTaken'],
-											'magicalDamageTaken': k['stats']['magicalDamageTaken'],
-											'physicalDamageTaken': k['stats']['physicalDamageTaken'],
-											'longestTimeSpentLiving': k['stats']['longestTimeSpentLiving'],
-											'visionScore': k['stats']['visionScore'],
-											'visionWardsBoughtInGame': k['stats']['visionWardsBoughtInGame'],
-											'wardsPlaced': k['stats']['wardsPlaced'],
-											'wardsKilled': k['stats']['wardsKilled'],
-											'goldEarned': k['stats']['goldEarned'],
-											'damageDealtToObjectives': k['stats']['damageDealtToObjectives'],
-											'damageDealtToTurrets': k['stats']['damageDealtToTurrets'],
-											'firstBloodKill': k['stats']['firstBloodKill'],
-											'creepsPerMinDeltas010': k['timeline']['creepsPerMinDeltas']['0-10'],
-											'creepsPerMinDeltas1020': k['timeline']['creepsPerMinDeltas']['10-20'],
-											'creepsPerMinDeltas2030': k['timeline']['creepsPerMinDeltas']['20-30'],
-											'lane': k['timeline']['lane']})
+			#check which team is which
+			if k['teamId'] == team1_data['teamId']:
+				participant_team = team1_data
+			else:
+				participant_team = team2_data		
 
-						#push completed array into dict
-						match_dict.append(match_data)
+			#only grab data from the participant
+			if participant_id == k['participantId']:
+				match_data.append({	'participantId': k['participantId'],
+									'championId': k['championId'],
+									'champImg': "http://ddragon.leagueoflegends.com/cdn/10.2.1/img/champion/"+id_to_name_champ_finder(k['championId'])+".png",
+									'teamId': k['teamId'],
+									'spell1Id': k['spell1Id'],
+									'spell2Id': k['spell2Id'],
+									'win': participant_team['win'],
+									'kills': k['stats']['kills'],
+									'deaths': k['stats']['deaths'],
+									'assists': k['stats']['assists'],
+									'dragonKills': participant_team['dragonKills'],
+									'baronKills': participant_team['baronKills'],
+									'riftHeraldKills': participant_team['riftHeraldKills'],
+									'totalDamageDealtToChampions': k['stats']['totalDamageDealtToChampions'],
+									'magicDamageDealtToChampions': k['stats']['magicDamageDealtToChampions'],
+									'physicalDamageDealtToChampions': k['stats']['physicalDamageDealtToChampions'],
+									'totalDamageTaken': k['stats']['totalDamageTaken'],
+									'magicalDamageTaken': k['stats']['magicalDamageTaken'],
+									'physicalDamageTaken': k['stats']['physicalDamageTaken'],
+									'longestTimeSpentLiving': k['stats']['longestTimeSpentLiving'],
+									'visionScore': k['stats']['visionScore'],
+									'visionWardsBoughtInGame': k['stats']['visionWardsBoughtInGame'],
+									'wardsPlaced': k['stats']['wardsPlaced'],
+									'wardsKilled': k['stats']['wardsKilled'],
+									'goldEarned': k['stats']['goldEarned'],
+									'damageDealtToObjectives': k['stats']['damageDealtToObjectives'],
+									'damageDealtToTurrets': k['stats']['damageDealtToTurrets'],
+									'firstBloodKill': k['stats']['firstBloodKill'],
+									'creepsPerMinDeltas': k['timeline']['creepsPerMinDeltas'],
+									'lane': k['timeline']['lane']})
+				# print(match_data)
+				#push completed array into dict
+				match_dict.append(match_data)
 
-	print( match_dict)	
+	print( match_dict)
+	return match_dict	
 
 
 
