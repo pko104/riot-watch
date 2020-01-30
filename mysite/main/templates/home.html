@@ -22,7 +22,7 @@
 	</div>
 	{%endblock%}
 
-	
+
 
 	<div class ="container">
 		<div class="row justify-content-center frozito-font">
@@ -54,6 +54,22 @@
 				<p class="champion-level">{{t.champion_level}}</p>
 				<p class="frozito-font champion-name">{{t.name}}</p>
 				<p class="wildb-font champ-pts">{{t.champion_points}}</p>
+			</div>
+			<br>
+		{% endfor %}	
+		</div>
+		<div class="row" style="position:relative;">
+		{% for m in match_data %}
+			<div class="col-12" style="position:relative;padding:15px">
+				<img class="" src={{m.champImg}}>
+				<div class="livemas-font col-12 justify-content-center wildb-font" style="display:flex">
+					<p class="livemas-font">Kills </p>
+					<p class="wildb-font"> ( {{m.kills}} )</p> -  
+					<p class="livemas-font"> Deaths </p>
+					<p class="wildb-font"> ( {{m.deaths}} )</p>
+					<p class="livemas-font"> Assists </p>
+					<p class="wildb-font">( {{m.assists}} )</p>	
+				</div>				
 			</div>
 			<br>
 		{% endfor %}	

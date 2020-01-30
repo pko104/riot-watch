@@ -70,7 +70,7 @@ def pull_out_match_data(name):
 
 			#only grab data from the participant
 			if participant_id == k['participantId']:
-				match_data.append({	'participantId': k['participantId'],
+				match_data = {		'participantId': k['participantId'],
 									'championId': k['championId'],
 									'champImg': "http://ddragon.leagueoflegends.com/cdn/10.2.1/img/champion/"+id_to_name_champ_finder(k['championId'])+".png",
 									'teamId': k['teamId'],
@@ -99,19 +99,14 @@ def pull_out_match_data(name):
 									'damageDealtToTurrets': k['stats']['damageDealtToTurrets'],
 									'firstBloodKill': k['stats']['firstBloodKill'],
 									'creepsPerMinDeltas': k['timeline']['creepsPerMinDeltas'],
-									'lane': k['timeline']['lane']})
-				# print(match_data)
+									'lane': k['timeline']['lane']}
 				#push completed array into dict
 				match_dict.append(match_data)
-
-	print( match_dict)
-	return match_dict	
+	return match_dict
 
 
 
-pull_out_match_data('ellls')
-
-
+# pull_out_match_data('ellls')
 
 
 # returns list of top 5 champs
@@ -167,6 +162,7 @@ class HomeView(TemplateView):
 					"text": text,
 					"mytopfive":top_5_best_champs(text),
 					"current_summoner":check_ranked_stats(text),
+					"match_data": pull_out_match_data(text)
 					}
 			return render(request,self.template_name, args)	
 
