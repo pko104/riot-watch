@@ -6,7 +6,7 @@ from .forms import SummonerForm
 from django.views.generic import TemplateView
 from riotwatcher import RiotWatcher, ApiError
 
-watcher = RiotWatcher('RGAPI-bb851bab-a748-46cf-a64d-8a614a718995')
+watcher = RiotWatcher('RGAPI-5354f50f-3bb9-4fb8-98e6-c3bac5c08ba0')
 my_region = 'na1'
 name = 'ellls'
 
@@ -28,7 +28,7 @@ def get_match_list_by_acc(name):
 	me = watcher.summoner.by_name(my_region, name)
 	my_match_stats = watcher.match.matchlist_by_account(my_region, me['accountId'])
 	five_array = []
-	five_array = my_match_stats["matches"][0:2]
+	five_array = my_match_stats["matches"][0:10]
 	return five_array
 
 #get match desc
@@ -47,8 +47,6 @@ def pull_out_match_data(name):
 
 	for m in match_desc:
 		#grab team both team data
-		print('hi')
-
 		match_data = []
 		team1_data = m['teams'][0]
 		team2_data = m['teams'][1]
@@ -98,7 +96,7 @@ def pull_out_match_data(name):
 									'damageDealtToObjectives': k['stats']['damageDealtToObjectives'],
 									'damageDealtToTurrets': k['stats']['damageDealtToTurrets'],
 									'firstBloodKill': k['stats']['firstBloodKill'],
-									'creepsPerMinDeltas': k['timeline']['creepsPerMinDeltas'],
+									'timeline': k['timeline'],
 									'lane': k['timeline']['lane']}
 				#push completed array into dict
 				match_dict.append(match_data)
@@ -150,10 +148,7 @@ class HomeView(TemplateView):
 		form = SummonerForm()
 		return render(	request=request,
 						template_name=self.template_name,
-						context={
-									"form":form
-								
-									})
+						context={"form":form})
 	def post(self,request):
 		form = SummonerForm(request.POST)
 		if form.is_valid():
