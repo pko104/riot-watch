@@ -68,3 +68,37 @@
     font-size: 15px;
 
 }
+.summoner-spell{
+    width: 18%;
+    box-shadow: 6px 6px 8px #888888;
+    outline: 0px outset black;
+    margin: 1px;
+}
+.summoner-champion{
+    width: 40%;
+    border: 3px outset cornflowerblue;
+    box-shadow: 4px 6px 8px #888888;
+}
+.match-history-grid{
+    width: 70%;
+}
+.Win-color{
+    background: lightblue;
+}
+.Fail-color{
+    background: pink;
+}
+.match-slab{
+    position: relative;
+    margin-bottom: 15px;
+    box-shadow: 4px 6px 8px wheat;
+    border: 3px outset lightsteelblue;
+
+}
+.kda-bar{
+    display: flex;
+    margin-top: 15px;
+    height: 20px;
+    width: 30%;
+}
+

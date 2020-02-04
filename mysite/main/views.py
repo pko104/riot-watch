@@ -30,7 +30,6 @@ def check_ranked_stats(name):
 	win_ratio = round(win_ratio,2)
 	my_ranked_stats[0].update({	"total_games":total_games,
 								"win_ratio":win_ratio})
-	print (my_ranked_stats)
 	return my_ranked_stats
 
 #champion id finder

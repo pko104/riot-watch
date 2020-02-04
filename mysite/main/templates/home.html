@@ -63,15 +63,48 @@
 			<br>
 		{% endfor %}	
 		</div>
-		<div class="row" style="position:relative;">
+	</div>	
+	<div class="container match-history-grid">		
 		{% for m in match_data %}
+		<div class="row {{m.win}}-color match-slab" style="position:relative;">
 			<div class="col-12" style="position:relative;padding:15px">
-				<div class="livemas-font" style="display:flex">
-					<img class="col-3" src={{m.champImg}}>
-					<img class="col-1" src={{m.spell1Id}}>
-					<img class="col-1" src={{m.spell2Id}}>
+				<div class="frozito-font" style="display:flex">
+					<div class="col-3">
+						<img class="summoner-champion" src={{m.champImg}}>
+						<br>
+						<img class="summoner-spell" src={{m.spell1Id}}>
+						<img class="summoner-spell" src={{m.spell2Id}}>
+					</div>
+					<div class="col-3">
+						dragkills= {{m.dragonKills}}
+						<br>
+						baronkills= {{m.baronKills}}
+						<br>
+						heraldkills= {{m.riftHeraldKills}}
+					</div>
+					<div class="col-3">
+						totaldmg= {{m.totalDamageDealtToChampions}}
+						<br>
+						magicdmg= {{m.physicalDamageDealtToChampions}}
+						<br>
+						physicaldmg= {{m.magicDamageDealtToChampions}}
+						<br>
+						dmgtoOBJ= {{m.damageDealtToObjectives}}
+						<br>
+						dmgtoTurret= {{m.damageDealtToTurrets}}
+					</div>
+					<div class="col-3">
+						visionScore= {{m.visionScore}}
+						<br>
+						howmanyRedWards= {{m.visionWardsBoughtInGame}}
+						<br>
+						wardPlace= {{m.wardsPlaced}}
+						<br>
+						wardKilled= {{m.wardsKilled}}
+					</div>	
+					
 				</div>		
-				<div class="livemas-font col-12 justify-content-center wildb-font" style="display:flex">
+				<div class="livemas-font col-12 justify-content-center wildb-font kda-bar">
 					<p class="livemas-font">Kills </p>
 					<p class="wildb-font"> ( {{m.kills}} )</p> -  
 					<p class="livemas-font"> Deaths </p>
@@ -81,7 +114,7 @@
 				</div>						
 			</div>
 			<br>
-		{% endfor %}	
-		</div>
+		</div>	
+		{% endfor %}		
 	</div>
 </body>
