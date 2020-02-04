@@ -10,10 +10,27 @@ watcher = RiotWatcher('RGAPI-5354f50f-3bb9-4fb8-98e6-c3bac5c08ba0')
 my_region = 'na1'
 name = 'ellls'
 
+
+sum_spell_json = {	4 : "http://ddragon.leagueoflegends.com/cdn/10.2.1/img/spell/SummonerFlash.png",
+					21 : "http://ddragon.leagueoflegends.com/cdn/10.2.1/img/spell/SummonerBarrier.png",
+					7 : "http://ddragon.leagueoflegends.com/cdn/10.2.1/img/spell/SummonerHeal.png"}
+
+def summonerSpellKey(dict, key):      
+    if key in dict.keys(): 
+        return dict[key]
+    else:
+        return key
+
 #check ranked stats
 def check_ranked_stats(name):
 	me = watcher.summoner.by_name(my_region, name)
 	my_ranked_stats = watcher.league.by_summoner(my_region, me['id'])
+	total_games = my_ranked_stats[0]['wins'] + my_ranked_stats[0]['losses']
+	win_ratio = float(my_ranked_stats[0]['wins']/total_games)*100
+	win_ratio = round(win_ratio,2)
+	my_ranked_stats[0].update({	"total_games":total_games,
+								"win_ratio":win_ratio})
+	print (my_ranked_stats)
 	return my_ranked_stats
 
 #champion id finder
@@ -72,8 +89,8 @@ def pull_out_match_data(name):
 									'championId': k['championId'],
 									'champImg': "http://ddragon.leagueoflegends.com/cdn/10.2.1/img/champion/"+id_to_name_champ_finder(k['championId'])+".png",
 									'teamId': k['teamId'],
-									'spell1Id': k['spell1Id'],
-									'spell2Id': k['spell2Id'],
+									'spell1Id': summonerSpellKey(sum_spell_json, k['spell1Id']),
+									'spell2Id': summonerSpellKey(sum_spell_json, k['spell2Id']),
 									'win': participant_team['win'],
 									'kills': k['stats']['kills'],
 									'deaths': k['stats']['deaths'],
@@ -101,11 +118,6 @@ def pull_out_match_data(name):
 				#push completed array into dict
 				match_dict.append(match_data)
 	return match_dict
-
-
-
-# pull_out_match_data('ellls')
-
 
 # returns list of top 5 champs
 def top_5_best_champs(name):
