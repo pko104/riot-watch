@@ -6,14 +6,15 @@ from .forms import SummonerForm
 from django.views.generic import TemplateView
 from riotwatcher import RiotWatcher, ApiError
 
-watcher = RiotWatcher('RGAPI-5354f50f-3bb9-4fb8-98e6-c3bac5c08ba0')
+watcher = RiotWatcher('RGAPI-d42b8ff2-5ed4-4c91-8fcc-c9db23f296e0')
 my_region = 'na1'
 name = 'ellls'
 
 
 sum_spell_json = {	4 : "http://ddragon.leagueoflegends.com/cdn/10.2.1/img/spell/SummonerFlash.png",
 					21 : "http://ddragon.leagueoflegends.com/cdn/10.2.1/img/spell/SummonerBarrier.png",
-					7 : "http://ddragon.leagueoflegends.com/cdn/10.2.1/img/spell/SummonerHeal.png"}
+					7 : "http://ddragon.leagueoflegends.com/cdn/10.2.1/img/spell/SummonerHeal.png",
+					14 : "http://ddragon.leagueoflegends.com/cdn/10.2.1/img/spell/SummonerIgnite.png"}
 
 def summonerSpellKey(dict, key):      
     if key in dict.keys(): 
