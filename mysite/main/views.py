@@ -6,7 +6,7 @@ from .forms import SummonerForm
 from django.views.generic import TemplateView
 from riotwatcher import RiotWatcher, ApiError
 
-watcher = RiotWatcher('RGAPI-d42b8ff2-5ed4-4c91-8fcc-c9db23f296e0')
+watcher = RiotWatcher('RGAPI-95416b93-c4e0-497d-8104-159d67963d2d')
 my_region = 'na1'
 name = 'ellls'
 
