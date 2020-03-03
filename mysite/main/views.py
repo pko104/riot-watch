@@ -6,7 +6,7 @@ from .forms import SummonerForm
 from django.views.generic import TemplateView
 from riotwatcher import RiotWatcher, ApiError
 
-watcher = RiotWatcher('RGAPI-fc97d7b0-b3eb-403c-b07d-a7dfd1da3f4a')
+watcher = RiotWatcher('RGAPI-5c43a0af-efb8-48c0-8225-d8c4ff2eef73')
 my_region = 'na1'
 name = 'ellls'
 
@@ -107,8 +107,8 @@ def pull_out_match_data(name):
 									'longestTimeSpentLiving': k['stats']['longestTimeSpentLiving'],
 									'visionScore': k['stats']['visionScore'],
 									'visionWardsBoughtInGame': k['stats']['visionWardsBoughtInGame'],
-									'wardsPlaced': k['stats']['wardsPlaced'],
-									'wardsKilled': k['stats']['wardsKilled'],
+									# 'wardsPlaced': k['stats']['wardsPlaced'],
+									# 'wardsKilled': k['stats']['wardsKilled'],
 									'goldEarned': k['stats']['goldEarned'],
 									'damageDealtToObjectives': k['stats']['damageDealtToObjectives'],
 									'damageDealtToTurrets': k['stats']['damageDealtToTurrets'],

@@ -10,7 +10,7 @@ class LikeButton extends React.Component {
 
   render() {
     if (this.state.liked) {
-      return 'You liked comment number ' + this.props.commentID;
+      return 'Here are your details' + this.props.dependencies;
     }
 
     return e(
@@ -25,9 +25,9 @@ class LikeButton extends React.Component {
 document.querySelectorAll('.like_button_container')
   .forEach(domContainer => {
     // Read the comment ID from a data-* attribute.
-    const commentID = parseInt(domContainer.dataset.commentid, 10);
+    const dependencies = domContainer.dataset.dependencies;
     ReactDOM.render(
-      e(LikeButton, { commentID: commentID }),
+      e(LikeButton, { dependencies: dependencies }),
       domContainer
     );
   });
